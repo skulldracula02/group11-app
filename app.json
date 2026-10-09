@@ -1,12 +1,16 @@
 {
   "expo": {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7e65a945c5b3c55b9c9de939ea44c1226ee67854
     "name": "adventure_escape_app",
     "slug": "adventure_escape_app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "adventureescapeapp",
+<<<<<<< HEAD
 =======
     "name": "app",
     "slug": "app",
@@ -15,6 +19,8 @@
     "icon": "./assets/images/icon.png",
     "scheme": "app",
 >>>>>>> 80665c61d218c3e98948caa91b94a24dd1d6be34
+=======
+>>>>>>> 7e65a945c5b3c55b9c9de939ea44c1226ee67854
     "userInterfaceStyle": "automatic",
     "ios": {
       "icon": "./assets/expo.icon"
@@ -38,6 +44,7 @@
         "expo-splash-screen",
         {
 <<<<<<< HEAD
+<<<<<<< HEAD
           "backgroundColor": "#208AEF",
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 76
@@ -46,6 +53,11 @@
           "image": "./assets/images/logo.png",
           "imageWidth": 340
 >>>>>>> 80665c61d218c3e98948caa91b94a24dd1d6be34
+=======
+          "backgroundColor": "#208AEF",
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 76
+>>>>>>> 7e65a945c5b3c55b9c9de939ea44c1226ee67854
         }
       ]
     ],
