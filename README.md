@@ -1,56 +1,112 @@
-# Welcome to your Expo app 👋
+ # Adventure Escape SA
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Adventure Escape SA is a mobile-first app and web experience for discovering outdoor activities in South Africa. Visitors can browse adventure packages, review activity details, estimate booking fees, and find the business's contact information.
 
-## Get started
+## Features
 
-1. Install dependencies
+- Browse family, hiking, ziplining, kayaking, corporate, and rock-climbing experiences.
+- View package descriptions, photos, age guidance, group sizes, and prices where available.
+- Select activities to see an estimated total with applicable discounts and VAT.
+- Find contact details and links for reaching Adventure Escape SA.
+- Run as an Expo app or export a static web build for hosting on Vercel.
 
-   ```bash
-   npm install
-   ```
+## Built with
 
-2. Start the app
+- [Expo](https://expo.dev/) and [React Native](https://reactnative.dev/)
+- [Expo Router](https://docs.expo.dev/router/introduction/) for file-based routing
+- TypeScript
+- [Vercel](https://vercel.com/) for static web hosting
 
-   ```bash
-   npx expo start
-   ```
+## Requirements
 
-In the output, you'll find options to open the app in a
+- Node.js (a current LTS release is recommended)
+- npm
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Run locally
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+Clone the repository and install its dependencies:
 
 ```bash
-npm run reset-project
+git clone https://github.com/skulldracula02/group11-app.git
+cd group11-app
+npm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Start the Expo development server:
 
-### Other setup steps
+```bash
+npm start
+```
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+Use the Expo terminal menu to open the app in Expo Go or a simulator. To run specifically in a browser, use:
 
-## Learn more
+```bash
+npm run web
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+## Deploy to Vercel
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+This repository includes a `vercel.json` that exports the Expo web app with `npx expo export --platform web` and publishes the generated `dist` directory.
 
-## Join the community
+### Deploy from the Vercel dashboard
 
-Join our community of developers creating universal apps.
+1. Push the project to the GitHub repository: [skulldracula02/group11-app](https://github.com/skulldracula02/group11-app).
+2. In [Vercel](https://vercel.com/), choose **Add New → Project** and import that GitHub repository. Authorize Vercel to access the repository if prompted.
+3. Keep the project root set to `.` (the repository root). The `vercel.json` deployment settings should be detected automatically:
+   - **Build command:** `npx expo export --platform web`
+   - **Output directory:** `dist`
+   - **Framework preset:** Other
+4. Select **Deploy**. Vercel will install dependencies, build the static web export, and provide a deployment URL when the build completes.
+5. Future pushes to the connected branch trigger new deployments. Pull requests can receive preview deployments.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+### Deploy with the Vercel CLI
+
+From the repository root, run:
+
+```bash
+npm install
+npx vercel
+```
+
+Follow the prompts to link the project to your Vercel account. To deploy to production after linking, run:
+
+```bash
+npx vercel --prod
+```
+
+You can also create and inspect the web build locally with:
+
+```bash
+npx expo export --platform web
+```
+
+The exported site is written to `dist/`.
+
+## Project structure
+
+```text
+app/
+├── App.tsx                 # Main app experience
+├── appData.ts              # Adventure packages, fees, and contact details
+├── src/app/                # Expo Router routes
+├── src/components/         # Shared UI components
+├── assets/images/          # App and activity images
+├── app.json                # Expo configuration
+└── vercel.json             # Vercel web build configuration
+```
+
+## Useful commands
+
+| Command | Description |
+| --- | --- |
+| `npm start` | Start the Expo development server |
+| `npm run web` | Start the app in a browser |
+| `npm run android` | Start the app for an Android target |
+| `npm run ios` | Start the app for an iOS target |
+| `npm run lint` | Run Expo's ESLint checks |
+| `npx expo export --platform web` | Build the static web export in `dist/` |
+
+## Notes
+
+- The Vercel deployment hosts the web version of the app. Use Expo/EAS workflows to build native Android and iOS applications.
+- Package rates, age guidance, availability, and activity requirements may change. Confirm details with Adventure Escape SA before booking.
