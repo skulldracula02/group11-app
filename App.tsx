@@ -422,13 +422,13 @@ function ContactScreen() {
         <View style={s.socialSection}>
           <Heading small style={s.socialHeading}>Follow our Adventure:</Heading>
           <View style={s.socials}>
-            {contact.socials.map((label) => (
-              <View key={label} style={s.socialItem}>
+            {contact.socials.map(({ label, url }) => (
+              <Pressable key={label} accessibilityRole="link" accessibilityLabel={`Search for Adventure Escape SA on ${label}`} onPress={() => openLink(url)} style={({ pressed }) => [s.socialItem, pressed && s.pressed]}>
                 <View style={[s.socialIcon, label === 'Facebook' ? s.facebookIcon : label === 'Instagram' ? s.instagramIcon : s.tiktokIcon]}>
                   <Text style={s.socialIconText}>{label === 'Facebook' ? 'f' : label === 'Instagram' ? '◎' : '♪'}</Text>
                 </View>
                 <Text style={s.socialLabel}>{label}</Text>
-              </View>
+              </Pressable>
             ))}
           </View>
         </View>
