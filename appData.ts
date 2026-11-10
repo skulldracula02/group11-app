@@ -174,10 +174,10 @@ export default {
     { title: 'A reason to explore', text: 'Trade the usual routine for fresh air, new views and time well spent outside.', image: images.reasonExplore },
   ],
   about: {
-    goals: 'Create welcoming outdoor experiences that make it easier for people to explore, connect and try something new.',
-    vision: 'More people finding confidence, connection and joy in the outdoors.',
-    mission: 'Help guests choose an adventure that fits their group, then make the planning clear and straightforward.',
-    history: 'Adventure Escape SA is building a place for outdoor discovery. Add the company’s verified history here when it is available.',
+    goals: 'Our goal is to encourage more people to explore South Africa through exciting outdoor activities. We aim to provide affordable adventure packages, maintain high safety standards, promote local tourist destinations and ensure every customer enjoys a memorable experience.',
+    vision: 'To become one of South Africa’s leading adventure tourism companies, recognised for unforgettable outdoor experiences, excellent customer service and a commitment to safe and responsible tourism.',
+    mission: 'Our mission is to make outdoor adventures accessible, enjoyable and memorable for everyone by offering safe, affordable and high-quality adventure experiences while promoting South Africa’s natural beauty.',
+    history: 'Adventure SA was established in 2018 with the aim of making outdoor adventure experiences more accessible to everyone. The company started with a passion for exploring South Africa’s natural beauty and has grown to offer exciting activities such as hiking, rock climbing, kayaking and ziplining. Today, Adventure SA is committed to providing memorable, safe and enjoyable experiences for individuals, families and groups.',
   },
   advice: {
     title: 'Plan a day that fits',
@@ -190,7 +190,11 @@ export default {
     email: 'info@adventurescape.co.za',
     address: 'Adventure Escape SA, 36 Bamberry Rd, Belthorn Estate, Cape Town, 7780',
     hours: ['Mon - Sat: 08:00 - 5:00 pm', 'Sun & Public Holidays: 08:00 - 3:00 pm'],
-    socials: ['Facebook', 'Instagram', 'TikTok'],
+    socials: [
+      { label: 'Facebook', url: 'https://www.facebook.com/search/top/?q=Adventure%20Escape%20SA' },
+      { label: 'Instagram', url: 'https://www.instagram.com/explore/search/keyword/?q=Adventure%20Escape%20SA' },
+      { label: 'TikTok', url: 'https://www.tiktok.com/search?q=Adventure%20Escape%20SA' },
+    ],
   },
   menu: [
     { route: 'home', label: 'Home' },
