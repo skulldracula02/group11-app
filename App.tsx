@@ -396,7 +396,7 @@ function ContactScreen() {
       <View style={s.contactCard}>
         {rows.map(({ label, value, url }) => (
           <Pressable key={label} accessibilityRole="link" accessibilityLabel={`${label}: ${value}`} onPress={() => openLink(url)} style={s.contactRow}>
-            <Text style={s.contactGlyph}>{label === 'Phone' ? '☎' : label === 'Email' ? '✉' : '●'}</Text>
+            {label === 'Address' ? <Text style={s.contactGlyph}>●</Text> : null}
             <View style={s.flex}>
               <Text style={s.contactLabel}>{label}:</Text>
               <Text style={s.contactValue}>{value}</Text>
