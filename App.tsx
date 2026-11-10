@@ -29,6 +29,7 @@ import {
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import data, { type PackageId } from './appData';
 import MapEmbed from './MapEmbed';
+import BookingDateTimeFields from './BookingDateTimeFields';
 
 const { colors: C, images, packages, calculateFees, formatMoney } = data;
 const serif = Platform.select({ ios: 'Georgia', android: 'serif', default: 'Georgia' });
@@ -44,7 +45,25 @@ type HeadingProps = { children: ReactNode; small?: boolean; style?: StyleProp<Te
 type PanelProps = { title?: string; children: ReactNode; color?: ColorValue; style?: StyleProp<ViewStyle> };
 type HeaderProps = { title: string; canGoBack: boolean; goBack: () => void; openMenu: () => void };
 type FieldProps = { label: string; value: string; onChangeText: (value: string) => void; keyboardType?: KeyboardTypeOptions; autoCapitalize?: TextInputProps['autoCapitalize']; maxLength?: number };
-type Customer = { name: string; email: string; phone: string; people: string };
+type Customer = { name: string; email: string; phone: string; people: string; date: string; time: string };
+
+function bookingDateError(value: string) {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
+  if (!match) return 'Choose a booking date.';
+  const [, year, month, day] = match;
+  const selected = new Date(Number(year), Number(month) - 1, Number(day));
+  if (selected.getFullYear() !== Number(year) || selected.getMonth() !== Number(month) - 1 || selected.getDate() !== Number(day)) {
+    return 'Choose a valid calendar date.';
+  }
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  if (selected < today) return 'The booking date cannot be in the past.';
+  return '';
+}
+
+function bookingTimeError(value: string) {
+  return /^(?:[01]\d|2[0-3]):[0-5]\d$/.test(value) ? '' : 'Choose a valid booking time.';
+}
 
 const titles: Record<ScreenName, string> = {
   home: 'Adventure Escape SA',
@@ -298,11 +317,15 @@ function BookingScreen({ packageId }: Pick<ScreenProps, 'packageId'>) {
   const [selected, setSelected] = useState(initialIds);
   const [quote, setQuote] = useState(() => calculateFees(initialIds));
   const [quoteKey, setQuoteKey] = useState(() => data.bookingIds.filter((id) => initialIds.includes(id)).join(','));
-  const [customer, setCustomer] = useState<Customer>({ name: '', email: '', phone: '', people: '1' });
+  const [customer, setCustomer] = useState<Customer>({ name: '', email: '', phone: '', people: '1', date: '', time: '' });
+  const [formError, setFormError] = useState('');
   const key = data.bookingIds.filter((id) => selected.includes(id)).join(',');
   const dirty = key !== quoteKey;
   const ratesReady = selected.length > 0 && selected.every((id) => Number.isInteger(packages[id].priceCents));
-  const update = (field: keyof Customer) => (value: string) => setCustomer((previous) => ({ ...previous, [field]: value }));
+  const update = (field: keyof Customer) => (value: string) => {
+    setCustomer((previous) => ({ ...previous, [field]: value }));
+    setFormError('');
+  };
   const toggle = (id: PackageId) => setSelected((previous) => previous.includes(id) ? previous.filter((value) => value !== id) : [...previous, id]);
 
   function refreshQuote() {
@@ -329,11 +352,21 @@ function BookingScreen({ packageId }: Pick<ScreenProps, 'packageId'>) {
       Alert.alert('Check number of people', 'Enter a whole number from 1 to 999. Group availability must be confirmed.');
       return;
     }
+    const dateError = bookingDateError(customer.date);
+    if (dateError) {
+      setFormError(dateError);
+      return;
+    }
+    const timeError = bookingTimeError(customer.time);
+    if (timeError) {
+      setFormError(timeError);
+      return;
+    }
     if (!selected.length) {
       Alert.alert('Choose an adventure', 'Select at least one package.');
       return;
     }
-    Alert.alert('Enquiry prepared', 'This demo has not sent or reserved anything. No payment has been taken. Contact Adventure Escape SA to confirm group pricing and availability.');
+    Alert.alert('Enquiry prepared', `Requested for ${customer.date} at ${customer.time}. This demo has not sent or reserved anything. No payment has been taken. Contact Adventure Escape SA to confirm group pricing and availability.`);
   }
 
   const feeRows: [string, number][] = [
@@ -351,8 +384,10 @@ function BookingScreen({ packageId }: Pick<ScreenProps, 'packageId'>) {
           <Field label="Email" value={customer.email} onChangeText={update('email')} keyboardType="email-address" />
           <Field label="Phone number" value={customer.phone} onChangeText={update('phone')} keyboardType="phone-pad" />
           <Field label="Number of people" value={customer.people} onChangeText={update('people')} keyboardType="number-pad" maxLength={3} />
+          <BookingDateTimeFields date={customer.date} time={customer.time} onDateChange={update('date')} onTimeChange={update('time')} />
         </View>
       </Panel>
+      {formError ? <Text accessibilityLiveRegion="polite" style={s.warning}>{formError}</Text> : null}
       <Panel title="Choose your adventures" color={C.orange}>
         {data.bookingIds.map((id) => (
           <Pressable key={id} accessibilityRole="checkbox" accessibilityLabel={`${packages[id].name}, ${formatMoney(packages[id].priceCents)}`} accessibilityState={{ checked: selected.includes(id) }} onPress={() => toggle(id)} style={s.checkboxRow}>
