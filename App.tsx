@@ -28,6 +28,7 @@ import {
 } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import data, { type PackageId } from './appData';
+import MapEmbed from './MapEmbed';
 
 const { colors: C, images, packages, calculateFees, formatMoney } = data;
 const serif = Platform.select({ ios: 'Georgia', android: 'serif', default: 'Georgia' });
@@ -403,21 +404,7 @@ function ContactScreen() {
           </Pressable>
         ))}
       </View>
-      <View>
-        <Pressable accessibilityRole="link" accessibilityLabel="Google Maps location preview" disabled={!mapsUrl} onPress={() => openLink(mapsUrl)} style={s.mapLabelRow}>
-          <Text style={s.mapLinkGlyph}>⌖</Text><Text style={s.mapLinkText}>Google maps mockup</Text>
-        </Pressable>
-        <View accessible accessibilityLabel="Map preview for Cape Town" style={s.mapMockup}>
-          <View style={s.mapPark} />
-          <View style={s.mapWater} />
-          <View style={[s.mapRoad, s.mapRoadOne]} />
-          <View style={[s.mapRoad, s.mapRoadTwo]} />
-          <View style={[s.mapRoad, s.mapRoadThree]} />
-          <View style={[s.mapRoad, s.mapRoadFour]} />
-          <Text style={s.mapPlace}>Cape Town</Text>
-          <Text style={s.mapPin}>●</Text>
-        </View>
-      </View>
+      {contact.address ? <MapEmbed address={contact.address} directionsUrl={mapsUrl} onOpenDirections={() => openLink(mapsUrl)} /> : null}
       {contact.socials.length ? (
         <View style={s.socialSection}>
           <Heading small style={s.socialHeading}>Follow our Adventure:</Heading>
@@ -634,19 +621,6 @@ const s = StyleSheet.create({
   contactLabel: { fontSize: 14, lineHeight: 18, color: C.white, fontWeight: '700' },
   contactValue: { fontSize: 14, lineHeight: 18, color: C.white },
   linkText: { textDecorationLine: 'underline' },
-  mapLabelRow: { flexDirection: 'row', alignItems: 'center', alignSelf: 'flex-start', gap: 4, paddingBottom: 4 },
-  mapLinkGlyph: { color: '#7835B4', fontSize: 16 },
-  mapLinkText: { color: '#7835B4', fontSize: 14, textDecorationLine: 'underline' },
-  mapMockup: { height: 116, width: '82%', alignSelf: 'center', overflow: 'hidden', backgroundColor: '#EAF0DB' },
-  mapPark: { position: 'absolute', width: '46%', height: '52%', left: '4%', top: '8%', backgroundColor: '#D3E7C3', borderRadius: 26, transform: [{ rotate: '-12deg' }] },
-  mapWater: { position: 'absolute', width: '80%', height: 16, left: '-10%', top: '68%', backgroundColor: '#B7DDE5', transform: [{ rotate: '-18deg' }] },
-  mapRoad: { position: 'absolute', height: 5, backgroundColor: '#FFFFFF', borderWidth: 1, borderColor: '#DED9C7' },
-  mapRoadOne: { width: '112%', left: '-5%', top: '30%', transform: [{ rotate: '12deg' }] },
-  mapRoadTwo: { width: '110%', left: '-4%', top: '52%', transform: [{ rotate: '-10deg' }] },
-  mapRoadThree: { width: '100%', left: '-8%', top: '80%', transform: [{ rotate: '8deg' }] },
-  mapRoadFour: { width: '95%', left: '28%', top: '48%', transform: [{ rotate: '72deg' }] },
-  mapPlace: { position: 'absolute', left: '53%', top: '38%', color: '#59614D', fontSize: 9 },
-  mapPin: { position: 'absolute', left: '65%', top: '47%', color: '#E24D3E', fontSize: 19, textShadowColor: C.white, textShadowRadius: 2 },
   socialSection: { alignItems: 'center', gap: 8, paddingTop: 2 },
   socialHeading: { fontSize: 15, lineHeight: 20, textAlign: 'center', color: C.brown },
   socials: { width: '100%', flexDirection: 'row', justifyContent: 'space-evenly' },
