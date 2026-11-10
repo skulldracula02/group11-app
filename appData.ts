@@ -191,9 +191,9 @@ export default {
     address: 'Adventurers Escape HQ, 11 Charles Street, Bitou 6600, South Africa',
     hours: ['Mon - Sat: 08:00 - 5:00 pm', 'Sun & Public Holidays: 08:00 - 3:00 pm'],
     socials: [
-      { label: 'Facebook', url: 'https://www.facebook.com/search/top/?q=Adventure%20Escape%20SA' },
-      { label: 'Instagram', url: 'https://www.instagram.com/explore/search/keyword/?q=Adventure%20Escape%20SA' },
-      { label: 'TikTok', url: 'https://www.tiktok.com/search?q=Adventure%20Escape%20SA' },
+      { label: 'Facebook', url: 'https://www.facebook.com/adventurersescape/' },
+      { label: 'Instagram', url: 'https://www.instagram.com/escapeadventures_/' },
+      { label: 'TikTok', url: 'https://www.tiktok.com/@a.s.adventure' },
     ],
   },
   menu: [
