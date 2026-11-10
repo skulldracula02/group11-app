@@ -188,7 +188,7 @@ export default {
     phone: '+27 72 717 7448',
     phoneUrl: 'tel:+27727177448',
     email: 'info@adventurescape.co.za',
-    address: 'Adventure Escape SA, 36 Bamberry Rd, Belthorn Estate, Cape Town, 7780',
+    address: 'Adventurers Escape HQ, 11 Charles Street, Bitou 6600, South Africa',
     hours: ['Mon - Sat: 08:00 - 5:00 pm', 'Sun & Public Holidays: 08:00 - 3:00 pm'],
     socials: [
       { label: 'Facebook', url: 'https://www.facebook.com/search/top/?q=Adventure%20Escape%20SA' },
